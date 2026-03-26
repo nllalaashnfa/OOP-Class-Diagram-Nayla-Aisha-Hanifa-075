@@ -252,10 +252,10 @@ Semua atribut di seluruh class menggunakan access modifier `private` atau `prote
 ## Keunikan Program
 
 ### 1. Laporan Tersedia Per Bulan, Bukan Hanya di Akhir
-Sistem menyimpan instance `AnggaranBulanan` di dalam `Map<String, AnggaranBulanan>` berdasarkan nama bulan. Dengan begitu, laporan breakdown dan evaluasi anggaran bisa ditampilkan untuk Maret maupun April secara terpisah — mencerminkan cara kerja aplikasi keuangan nyata.
+Sistem menyimpan instance `AnggaranBulanan` di dalam `Map<String, AnggaranBulanan>` berdasarkan nama bulan. Dengan begitu, laporan breakdown dan evaluasi anggaran bisa ditampilkan untuk Maret maupun April secara terpisah, mencerminkan cara kerja aplikasi keuangan nyata.
 
 ### 2. Saldo Awal dari Banyak Dompet
-Melalui class `DompetDigital`, saldo awal Rafi diperhitungkan dari tiga sumber: uang tunai, rekening bank, dan GoPay. Ini lebih realistis dibanding sekadar menginput satu angka saldo awal.
+Melalui class `DompetDigital`, saldo awal saya diperhitungkan dari tiga sumber: uang tunai, rekening bank, dan GoPay. Ini lebih realistis dibanding sekadar menginput satu angka saldo awal.
 
 ### 3. Alert Anggaran Real-Time
 Pelanggaran anggaran terdeteksi **tepat saat transaksi terjadi**, bukan hanya saat laporan dibuka. Pengguna langsung tahu di mana pengeluarannya membengkak.
