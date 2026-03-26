@@ -140,7 +140,8 @@ public void tambahDompet(DompetDigital dompet) {
 }
 ```
 
-Uang saya tersebar di tiga tempat berbeda: Tunai, BCA Mobile, dan GoPay. Dengan mendaftarkan setiap dompet ke sistem, saldo awal yang diperhitungkan sudah merangkum ketiganya sekaligus, bukan hanya satu rekening.
+Kenyataannya uang saya itu nggak cuma di satu tempat, ada yang tunai, di BCA Mobile, sama di GoPay. Jadi saya bikin class `DompetDigital` supaya tiap sumber bisa didaftarkan satu-satu, dan saldo awalnya otomatis keitung dari semua dompet sekaligus.
+
 
 ---
 
@@ -160,7 +161,7 @@ public boolean isMelebihiBatas(String kat) {
 }
 ```
 
-Dengan menyimpan setiap `AnggaranBulanan` ke dalam `Map<String, AnggaranBulanan>`, laporan Maret dan April bisa ditampilkan secara terpisah kapan saja.
+Ide awalnya simpel, saya pengen bisa lihat laporan Maret dan April secara terpisah tanpa datanya kecamp. Makanya tiap `AnggaranBulanan` saya simpan di Map dengan kunci nama bulannya. Tinggal panggil `"Maret 2026"` dan laporannya langsung keluar.
 
 ---
 
@@ -176,7 +177,7 @@ if (anggaranAktif.isMelebihiBatas(kategori)) {
 }
 ```
 
-Alert muncul tepat saat transaksi terjadi — bukan hanya saat laporan bulanan dibuka. Ini memberi umpan balik langsung kepada saya sebelum pengeluaran semakin membengkak.
+Saya nggak mau alertnya baru muncul pas buka laporan akhir bulan, seperti sudah terlambat kalau munculnya diakhirnya saja. Jadi setiap kali ada pengeluaran, langsung dicek saat itu juga. Kalau udah lewat batas, langsung keluar peringatan `[ALERT]` di terminal.
 
 ---
 
@@ -193,7 +194,8 @@ public void tambahPengeluaran(...) {
 }
 ```
 
-Transaksi yang melebihi saldo langsung ditolak dengan pesan yang menjelaskan berapa yang dibutuhkan dan berapa yang dimiliki. Ini mencegah kondisi saldo negatif dan mensimulasikan perilaku kartu debit.
+Ini biar saldo nggak bisa minus. Kalau pengeluaran yang diinput lebih besar dari saldo yang ada, transaksinya langsung ditolak dan sistem nampilin info butuh berapa, punya berapa. Mirip cara kerja kartu debit kalau limitnya nggak cukup. Jadi biar menyadarkan saya juga.
+
 
 ---
 
@@ -208,7 +210,7 @@ semua.sort(Comparator.comparingInt(Transaksi::getId));
 for (Transaksi t : semua) t.tampilkanInfo(); // polymorphism
 ```
 
-`Pemasukan` dan `Pengeluaran` digabung ke satu `List<Transaksi>`, lalu diurutkan berdasarkan ID. Saat `tampilkanInfo()` dipanggil, Java otomatis menjalankan versi yang tepat berdasarkan tipe objek aslinya.
+Biar riwayat transaksinya keliatan urut dan rapi, saya gabung `Pemasukan` sama `Pengeluaran` ke satu list bertipe `Transaksi`, terus saya sort berdasarkan ID. Waktu `tampilkanInfo()` dipanggil, Java sendiri yang nentuin versi mana yang jalan sesuai tipe objek aslinya.
 
 ---
 
@@ -224,7 +226,7 @@ private String buatProgressBar(double persen) {
 }
 ```
 
-Progress tabungan ditampilkan sebagai bar visual `[========------]` sehingga seberapa dekat saya dengan target saya langsung bisa dilihat tanpa harus menghitung sendiri.
+Biar keliatan seberapa deket targetnya tanpa harus ngitung manual, saya tambahin progress bar ASCII `[========------------]`. Panjangnya 20 karakter, bagian `=` nunjukin yang udah terkumpul, sisanya `-`. Simpel tapi langsung keliatan progressnya.
 
 ---
 
@@ -251,17 +253,20 @@ Semua atribut di seluruh class menggunakan access modifier `private` atau `prote
 
 ## Keunikan Program
 
-### 1. Laporan Tersedia Per Bulan, Bukan Hanya di Akhir
-Ide awalnya simpel, saya pengen bisa lihat laporan Maret dan April secara terpisah tanpa data keduanya kecamp. Makanya saya simpan tiap `AnggaranBulanan` di dalam Map dengan kunci nama bulannya. Jadi tinggal panggil `"Maret 2026"` dan laporannya langsung keluar.
+### 1. Alert anggaran muncul langsung, bukan nunggu laporan
+Kebanyakan program pencatat keuangan baru kasih tau kalau anggaran kebablasan pas laporan bulanan dibuka. Di MoneyKos, pengecekan dilakukan tiap kali ada transaksi masuk, jadi [ALERT] langsung keluar saat itu juga sebelum pengeluaran makin numpuk.
 
-### 2. Saldo Awal dari Banyak Dompet
-Melalui class `DompetDigital`, saldo awal saya diperhitungkan dari tiga sumber: uang tunai, rekening bank, dan GoPay. Ini lebih realistis dibanding sekadar menginput satu angka saldo awal.
+### 2. Saldo awal dari banyak dompet sekaligus
+Uang saya nggak cuma ada di satu tempat. Lewat DompetDigital, saya bisa daftarin Tunai, BCA Mobile, dan GoPay sekaligus. Saldo totalnya langsung keitung dari semua sumber tanpa harus input manual satu angka.
 
-### 3. Alert Anggaran Real-Time
-Pelanggaran anggaran terdeteksi **tepat saat transaksi terjadi**, bukan hanya saat laporan dibuka. Pengguna langsung tahu di mana pengeluarannya membengkak.
+### 3. Target tabungan yang bisa dilacak satu per satu
+Saya bisa nabung iPad Pro M2 sama blindbox Hirono secara bersamaan. Setiap target punya catatannya sendiri lengkap dengan progress bar dan notifikasi kalau udah tercapai.
 
-### 4. Progress Bar Visual untuk Tabungan Bertujuan
-Setiap target tabungan ditampilkan dengan progress bar ASCII `[========---------]` yang membuat progres terasa intuitif dan memotivasi.
+### 4. Laporan bisa dipanggil per bulan kapan aja
+Karena tiap AnggaranBulanan disimpan di Map dengan kunci nama bulan, laporan Maret nggak akan ketimpa data April. Bisa dipanggil ulang kapanpun tanpa kehilangan data bulan sebelumnya.
+
+### 5. Progress Bar Visual untuk Tabungan Bertujuan
+Setiap target tabungan ditampilkan dengan progress bar ASCII `[========---------]` yang membuat progres dapat diliat secara visual
 
 ---
 
