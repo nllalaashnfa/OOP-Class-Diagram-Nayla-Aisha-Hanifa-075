@@ -252,7 +252,7 @@ Semua atribut di seluruh class menggunakan access modifier `private` atau `prote
 ## Keunikan Program
 
 ### 1. Laporan Tersedia Per Bulan, Bukan Hanya di Akhir
-Ide awalnya simpel — saya pengen bisa lihat laporan Maret dan April secara terpisah tanpa data keduanya kecamp. Makanya saya simpan tiap `AnggaranBulanan` di dalam Map dengan kunci nama bulannya. Jadi tinggal panggil `"Maret 2026"` dan laporannya langsung keluar.
+Ide awalnya simpel, saya pengen bisa lihat laporan Maret dan April secara terpisah tanpa data keduanya kecamp. Makanya saya simpan tiap `AnggaranBulanan` di dalam Map dengan kunci nama bulannya. Jadi tinggal panggil `"Maret 2026"` dan laporannya langsung keluar.
 
 ### 2. Saldo Awal dari Banyak Dompet
 Melalui class `DompetDigital`, saldo awal saya diperhitungkan dari tiga sumber: uang tunai, rekening bank, dan GoPay. Ini lebih realistis dibanding sekadar menginput satu angka saldo awal.
