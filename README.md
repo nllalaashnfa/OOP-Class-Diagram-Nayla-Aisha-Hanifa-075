@@ -226,7 +226,7 @@ private String buatProgressBar(double persen) {
 }
 ```
 
-Biar keliatan seberapa deket targetnya tanpa harus ngitung manual, saya tambahin progress bar ASCII `[========------------]`. Panjangnya 20 karakter, bagian `=` nunjukin yang udah terkumpul, sisanya `-`. Simpel tapi langsung keliatan progressnya.
+Biar keliatan seberapa deket targetnya tanpa harus ngitung manual, saya tambahin progress bar ASCII `[========------------]`. Bagian `=` nunjukin yang udah terkumpul, sisanya `-`. Simpel tapi langsung keliatan progressnya.
 
 ---
 
